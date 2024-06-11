@@ -1,5 +1,5 @@
 ---
-title: "Counties"
+title: "NYC Tracts"
 author: "Dinesh Satyavolu"
 format: html
 ---
@@ -12,6 +12,9 @@ library(primer.data)
 ```
 
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
 q <- read_csv("data/nyc_tracts.csv")
 
 # Convert med_income to numeric
@@ -20,12 +23,12 @@ q <- read_csv("data/nyc_tracts.csv")
 q$med_income <- as.numeric(q$med_income)
 
 # Create the plot
-ggplot(q, aes(x = tract, y = med_income, fill = race)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  theme(axis.text.x = element_text(angle = 10, hjust = 1)) +
-  labs(title = "Median Income by Race and Census Tract",
-       x = "Census Tract",
+ggplot(q, aes(x = race, y = med_income, fill = race)) +
+  geom_boxplot() +
+  labs(title = "Median Income by Race", caption = "Data from nyc_tracts.csv",
+       x = "Race",
        y = "Median Income ($)",
-       fill = "Race")
+       fill = "Race") +
+  theme_minimal()
 ```
 
